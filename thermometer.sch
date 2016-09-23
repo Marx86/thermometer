@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:thermometer-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -46,7 +47,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L Si705x DD1
+L Si705x-RESCUE-thermometer DD1
 U 1 1 57D7C352
 P 2050 3950
 F 0 "DD1" H 1980 4430 60  0000 C CNN
