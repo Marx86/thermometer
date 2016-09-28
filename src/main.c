@@ -19,30 +19,58 @@
 uint8_t TEMP;
 
 const char SYMBOLS[14] PROGMEM = {
-    0b11000110, // deg °
-    0b00000010, // -
+    //abchfged
+    0b11001100, // deg °
+    0b00000100, // -
     0b00000000, // space
-    0b10011100, // C
-    0b11111100, // 0
+    0b10001011, // C
+    0b11101011, // 0
     0b01100000, // 1
-    0b11011010, // 2
-    0b11110010, // 3
-    0b01100110, // 4
-    0b10110110, // 5
-    0b10111110, // 6
+    0b11000111, // 2
+    0b11100101, // 3
+    0b01101100, // 4
+    0b10101101, // 5
+    0b10101111, // 6
     0b11100000, // 7
-    0b11111110, // 8
-    0b11110110  // 9
+    0b11101111, // 8
+    0b11101101  // 9
 };
 
 
-void get_symbol(uint8_t index) {
+char get_symbol(uint8_t index) {
     return pgm_read_byte(&SYMBOLS[index]);
 }
 
 
-void write_symbol(uint8_t symbol, uint8_t position) {
+void display_print_symbol(uint8_t symbol, uint8_t position) {
     char current_symbol = get_symbol(symbol - 44);
+    char m_symbol = current_symbol >> 4;
+    char l_symbol = current_symbol & 0b00001111;
+
+    if (position == 0) {
+        DDRB = 0b00000000;
+        PORTB = 0b00000000;
+
+        PORTD &= 0b11100001 | (m_symbol << 1);
+        DDRD = 0b01011110;
+
+        _ms_delay(1.33);
+
+        PORTD &= 0b10100001 | ((~m_symbol << 1) | 0b01000000);
+
+        _ms_delay(1.33);
+
+        DDRD = 0b00011110;
+
+        PORTD &= 0b11100001 | (l_symbol << 1);
+        DDRD = 0b00111110;
+
+        _ms_delay(1.33);
+
+        PORTD &= 0b11000001 | ((~l_symbol << 1) | 0b00100000);
+
+        DDRD = 0b00011110;
+    }
 
     DDRD = 1 << position;
     PORTD = 0;
@@ -72,7 +100,7 @@ void i2c_write_byte(char byte) {
 }
 
 
-void i2c_read_byte() {
+char i2c_read_byte() {
     uint8_t i;
     char byte = 0b00000000;
 
@@ -115,7 +143,7 @@ void i2c_stop() {
 void read_temp() {
     uint16_t result;
 
-    i2c_start()
+    i2c_start();
 
     // Write address and "write bit"
     i2c_write_byte(0b10000001);
@@ -123,7 +151,7 @@ void read_temp() {
     // Write command
     i2c_write_byte(0xE3);
 
-    i2c_start()
+    i2c_start();
 
     // Write address and "read bit"
     i2c_write_byte(0b10000000);
@@ -134,27 +162,24 @@ void read_temp() {
     result |= i2c_read_byte() << 8;
     result |= i2c_read_byte();
 
-    i2c_stop()
+    i2c_stop();
 
     TEMP = ((175.72 * result) / 65536) - 46.85;
 }
 
 
 void main() {
-    int8_t temp;
     char print_temp[6];
 
-    DDRB = 0b11111111;
-    DDRD = 0b00000000;
-    DDRA = 0b00000011
+    DDRB = 0b00000000;
+    DDRD = 0b00011110;
+    DDRA = 0b00000011;
 
     while (1) {
-        temp = read_temp();
-
-        sprintf(print_temp, "%3i%c%c%c", temp, space, deg, C);
+        sprintf(print_temp, "%3i%c%c%c", TEMP, space, deg, C);
 
         for (uint8_t i; i<6; i++) {
-            write_symbol(print_temp[i], i);
+            display_print_symbol(print_temp[i], i);
         }
     }
 }
