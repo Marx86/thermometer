@@ -1,14 +1,15 @@
 #define F_CPU 128000L
-#define space '.'
-#define C '/'
-#define deg ','
 #define SCL 0
 #define SDA 1
 #define I2C PORTA
-#define SDA_mask = (1 << SDA);
-#define SCL_mask = (1 << SCL);
+#define SDA_mask (1 << SDA)
+#define SCL_mask (1 << SCL)
 #define set_h(port, pin) (port |= (1 << pin))
 #define set_l(port, pin) (port &= ~(1 << pin))
+#define set_h_SCL() I2C |= SCL_mask
+#define set_h_SDA() I2C |= SDA_mask
+#define set_l_SCL() I2C &= ~SCL_mask
+#define set_l_SDA() I2C &= ~SDA_mask
 
 #include <stdio.h>
 #include <avr/io.h>
@@ -37,48 +38,43 @@ const char SYMBOLS[14] PROGMEM = {
 };
 
 
-char get_symbol(uint8_t index) {
-    return pgm_read_byte(&SYMBOLS[index]);
+void display_print_first_half_of_symbol(char symbol, uint8_t position) {
+    char m_symbol = symbol >> 4;
+
+    DDRB = 0b00000000;
+    PORTD &= 0b10000111 | (m_symbol << 3);
+    DDRB = 1 << position;
+    PORTB = 0b00000000;
+
+    _delay_ms(1.33);
+
+    PORTD &= 0b10000111 | (~m_symbol << 3);
+    PORTB = DDRB;
+
+    _delay_ms(1.33);
 }
 
 
-void display_print_symbol(uint8_t symbol, uint8_t position) {
-    char current_symbol = get_symbol(symbol - 44);
-    char m_symbol = current_symbol >> 4;
-    char l_symbol = current_symbol & 0b00001111;
+void display_print_second_half_of_symbol(char symbol, uint8_t position) {
+    char l_symbol = symbol & 0b00001111;
 
-    if (position == 0) {
-        DDRB = 0b00000000;
-        PORTB = 0b00000000;
+    DDRB = 0b00000000;
+    PORTD &= 0b10000111 | (l_symbol << 3);
+    DDRB = 1 << position;
+    PORTB = 0b00000000;
 
-        PORTD &= 0b11100001 | (m_symbol << 1);
-        DDRD = 0b01011110;
+    _delay_ms(1.33);
 
-        _ms_delay(1.33);
+    PORTD &= 0b10000111 | (~l_symbol << 3);
+    PORTB = DDRB;
 
-        PORTD &= 0b10100001 | ((~m_symbol << 1) | 0b01000000);
+    _delay_ms(1.33);
+}
 
-        _ms_delay(1.33);
 
-        DDRD = 0b00011110;
-
-        PORTD &= 0b11100001 | (l_symbol << 1);
-        DDRD = 0b00111110;
-
-        _ms_delay(1.33);
-
-        PORTD &= 0b11000001 | ((~l_symbol << 1) | 0b00100000);
-
-        DDRD = 0b00011110;
-    }
-
-    DDRD = 1 << position;
-    PORTD = 0;
-    PORTB = current_symbol;
-    _ms_delay(1.33);
-    PORTD = DDRD;
-    PORTB = ~current_symbol;
-    _ms_delay(1.33);
+void display_print_symbol(char symbol, uint8_t position) {
+    display_print_first_half_of_symbol(symbol, position);
+    display_print_second_half_of_symbol(symbol, position+1);
 }
 
 
@@ -117,7 +113,7 @@ char i2c_read_byte() {
     I2C ^= SCL_mask;
     I2C ^= SCL_mask;
 
-    set_h(DDRA, SDA); // Set SDA pin to write mode
+    set_h_SDA(); // Set SDA pin to write mode
 
     return byte;
 }
@@ -125,18 +121,18 @@ char i2c_read_byte() {
 
 void i2c_start() {
     // Write start bit
-    set_h(I2C, SCL);
-    set_h(I2C, SDA);
-    set_l(I2C, SDA);
-    set_l(I2C, SCL);
+    set_h_SCL();
+    set_h_SDA();
+    set_l_SDA();
+    set_l_SCL();
 }
 
 
 void i2c_stop() {
-    set_l(I2C, SCL);
-    set_l(I2C, SDA);
-    set_h(I2C, SCL);
-    set_h(I2C, SDA);
+    set_l_SCL();
+    set_l_SDA();
+    set_h_SCL();
+    set_h_SDA();
 }
 
 
@@ -169,17 +165,30 @@ void read_temp() {
 
 
 void main() {
-    char print_temp[6];
+    char print_temp[3];
+    char symbol;
 
     DDRB = 0b00000000;
-    DDRD = 0b00011110;
+    DDRD = 0b01111011;
     DDRA = 0b00000011;
 
     while (1) {
-        sprintf(print_temp, "%3i%c%c%c", TEMP, space, deg, C);
+        // TODO: Move to interupt
+        sprintf(print_temp, "%3i", TEMP);
 
-        for (uint8_t i; i<6; i++) {
-            display_print_symbol(print_temp[i], i);
-        }
+        symbol = pgm_read_byte(&SYMBOLS[print_temp[0]-44]);
+        display_print_first_half_of_symbol(symbol, 0);
+
+        symbol = pgm_read_byte(&SYMBOLS[print_temp[1]-44]);
+        display_print_symbol(symbol, 1);
+
+        symbol = pgm_read_byte(&SYMBOLS[print_temp[2]-44]);
+        display_print_symbol(symbol, 2);
+
+        symbol = pgm_read_byte(&SYMBOLS[0]);
+        display_print_first_half_of_symbol(symbol, 3);
+
+        symbol = pgm_read_byte(&SYMBOLS[3]);
+        display_print_symbol(symbol, 4);
     }
 }
