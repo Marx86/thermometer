@@ -11,19 +11,17 @@
 #define set_l_SCL() I2C &= ~SCL_mask
 #define set_l_SDA() I2C &= ~SDA_mask
 
-#include <stdio.h>
 #include <avr/io.h>
+#include <string.h>
 #include <util/delay.h>
 #include <avr/pgmspace.h>
 
 
-uint8_t TEMP;
-
 const char SYMBOLS[14] PROGMEM = {
     //abchfged
-    0b11001100, // deg °
-    0b00000100, // -
     0b00000000, // space
+    0b00000100, // -
+    0b11001100, // deg °
     0b10001011, // C
     0b11101011, // 0
     0b01100000, // 1
@@ -136,7 +134,7 @@ void i2c_stop() {
 }
 
 
-void read_temp() {
+int8_t read_temp() {
     uint16_t result;
 
     i2c_start();
@@ -160,35 +158,48 @@ void read_temp() {
 
     i2c_stop();
 
-    TEMP = ((175.72 * result) / 65536) - 46.85;
+    return ((175.72 * result) / 65536) - 46.85;
 }
 
 
 void main() {
-    char print_temp[3];
-    char symbol;
+    // , - is space
+    char symbol, raw_temp[3], temp[5] = ",,";
+    uint8_t i, len, start_index, position, iterations = 0;
 
     DDRB = 0b00000000;
     DDRD = 0b01111011;
     DDRA = 0b00000011;
 
     while (1) {
-        // TODO: Move to interupt
-        sprintf(print_temp, "%3i", TEMP);
+        if (iterations == 255) {
+            itoa(read_temp(), raw_temp);
+            strcat(temp, raw_temp);
+            len = strlen(temp);
+            start_index = len - 3;
+            iterations = 0;
+        }
 
-        symbol = pgm_read_byte(&SYMBOLS[print_temp[0]-44]);
-        display_print_first_half_of_symbol(symbol, 0);
+        position = 0;
+        for (i=start_index; i<len; i++) {
+            symbol = pgm_read_byte(&SYMBOLS[temp[i]-44]);
+            if (temp[i] == '-') {
+                display_print_first_half_of_symbol(symbol, position);
+                position++;
+            }
+            else {
+                display_print_symbol(symbol, position);
+                position += 2;
+            }
+        }
 
-        symbol = pgm_read_byte(&SYMBOLS[print_temp[1]-44]);
-        display_print_symbol(symbol, 1);
+        symbol = pgm_read_byte(&SYMBOLS[2]);
+        display_print_first_half_of_symbol(symbol, position);
 
-        symbol = pgm_read_byte(&SYMBOLS[print_temp[2]-44]);
-        display_print_symbol(symbol, 2);
-
-        symbol = pgm_read_byte(&SYMBOLS[0]);
-        display_print_first_half_of_symbol(symbol, 3);
-
+        position++;
         symbol = pgm_read_byte(&SYMBOLS[3]);
-        display_print_symbol(symbol, 4);
+        display_print_symbol(symbol, position);
+
+        iterations++;
     }
 }
