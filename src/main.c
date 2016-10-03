@@ -168,8 +168,8 @@ void main() {
     uint8_t i, len, start_index, position, iterations = 0;
 
     DDRB = 0b00000000;
-    DDRD = 0b01111011;
-    DDRA = 0b00000011;
+    DDRD = 0b11111111;
+    DDRA = 0b11111111;
 
     while (1) {
         if (iterations == 255) {
