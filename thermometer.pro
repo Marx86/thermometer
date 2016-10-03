@@ -1,4 +1,4 @@
-update=Вт. 27 сент. 2016 10:18:37
+update=Пн. 03 окт. 2016 11:51:39
 version=1
 last_client=kicad
 [pcbnew]
@@ -62,3 +62,4 @@ LibName30=valves
 LibName31=lib/si705x
 LibName32=lib/lcd_display
 LibName33=lib/max1555
+LibName34=lib/ltc1517
