@@ -1,4 +1,4 @@
-update=Пн. 03 окт. 2016 11:51:39
+update=Пн. 05 дек. 2016 14:14:57
 version=1
 last_client=kicad
 [pcbnew]
@@ -63,3 +63,4 @@ LibName31=lib/si705x
 LibName32=lib/lcd_display
 LibName33=lib/max1555
 LibName34=lib/ltc1517
+LibName35=lib/ldk120

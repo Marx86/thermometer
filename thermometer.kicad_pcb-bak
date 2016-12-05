@@ -855,7 +855,7 @@
   )
 
   (module Capacitors_ThroughHole:C_Radial_D5_L6_P2.5 (layer F.Cu) (tedit 0) (tstamp 57F21F76)
-    (at 128.4732 100.2792 90)
+    (at 128.5748 100.2792 90)
     (descr "Radial Electrolytic Capacitor Diameter 5mm x Length 6mm, Pitch 2.5mm")
     (tags "Electrolytic Capacitor")
     (path /57F22365)

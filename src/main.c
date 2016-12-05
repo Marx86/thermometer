@@ -36,46 +36,6 @@ const char SYMBOLS[14] PROGMEM = {
 };
 
 
-void display_print_first_half_of_symbol(char symbol, uint8_t position) {
-    char m_symbol = symbol >> 4;
-
-    DDRB = 0b00000000;
-    PORTD &= 0b10000111 | (m_symbol << 3);
-    DDRB = 1 << position;
-    PORTB = 0b00000000;
-
-    _delay_ms(1.33);
-
-    PORTD &= 0b10000111 | (~m_symbol << 3);
-    PORTB = DDRB;
-
-    _delay_ms(1.33);
-}
-
-
-void display_print_second_half_of_symbol(char symbol, uint8_t position) {
-    char l_symbol = symbol & 0b00001111;
-
-    DDRB = 0b00000000;
-    PORTD &= 0b10000111 | (l_symbol << 3);
-    DDRB = 1 << position;
-    PORTB = 0b00000000;
-
-    _delay_ms(1.33);
-
-    PORTD &= 0b10000111 | (~l_symbol << 3);
-    PORTB = DDRB;
-
-    _delay_ms(1.33);
-}
-
-
-void display_print_symbol(char symbol, uint8_t position) {
-    display_print_first_half_of_symbol(symbol, position);
-    display_print_second_half_of_symbol(symbol, position+1);
-}
-
-
 void i2c_write_byte(char byte) {
     uint8_t i;
 
@@ -162,43 +122,72 @@ int8_t read_temp() {
 }
 
 
+convert_for_4mux_dysplay(char temp) {
+    uint8_t i, len, start_index, position = 0,  invert_position_a, invert_position_b;
+    char symbol, TEMP[4] = {0, 0, 0, 0};
+
+    len = strlen(temp);
+    start_index = len - 3;
+
+    for (i=start_index; i<len; i++) {
+        symbol = pgm_read_byte(&SYMBOLS[temp[i]-44]);
+        invert_position_a = 7 - position;
+        invert_position_b = 6 - position;
+
+        if (temp[i] == '-') {
+            TEMP[2] |= ((0b01000000 & symbol) >> 6) << invert_position_a;
+            position++;
+        }
+        else {
+            TEMP[3] |= ((0b00001000 & symbol) >> 3) << invert_position_a;
+            TEMP[2] |= ((0b00000100 & symbol) >> 2) << invert_position_a;
+            TEMP[1] |= ((0b00000010 & symbol) >> 1) << invert_position_a;
+            TEMP[0] |= (0b00000001 & symbol) << invert_position_a;
+            TEMP[3] |= ((0b10000000 & symbol) >> 7) << invert_position_b;
+            TEMP[2] |= ((0b01000000 & symbol) >> 6) << invert_position_b;
+            TEMP[1] |= ((0b00100000 & symbol) >> 5) << invert_position_b;
+            TEMP[0] |= ((0b00010000 & symbol) >> 4) << invert_position_b;
+            position += 2;
+        }
+    }
+
+    return TEMP;
+}
+
+
+print_com(char temp_com) {
+    PORTB = temp_com;
+    set_h(DDRD, i+3);
+    set_h(PORTD, i+3);
+    _delay_ms(1.33);
+    PORTB = ~temp_com;
+    set_l(PORTD, i+3);
+    _delay_ms(1.33);
+    set_l(DDRD, i+3);
+}
+
+
 void main() {
     // , - is space
-    char symbol, raw_temp[3], temp[5] = ",,";
-    uint8_t i, len, start_index, position, iterations = 0;
+    char symbol, raw_temp[3], temp[5] = ",,", TEMP[4];
+    uint8_t i, iterations = 0;
 
-    DDRB = 0b00000000;
-    DDRD = 0b11111111;
+    DDRB = 0b11111111;
+    DDRD = 0b11110000;
     DDRA = 0b11111111;
 
     while (1) {
         if (iterations == 255) {
             itoa(read_temp(), raw_temp);
             strcat(temp, raw_temp);
-            len = strlen(temp);
-            start_index = len - 3;
             iterations = 0;
+
+            TEMP = convert_for_4mux_dysplay(temp);
         }
 
-        position = 0;
-        for (i=start_index; i<len; i++) {
-            symbol = pgm_read_byte(&SYMBOLS[temp[i]-44]);
-            if (temp[i] == '-') {
-                display_print_first_half_of_symbol(symbol, position);
-                position++;
-            }
-            else {
-                display_print_symbol(symbol, position);
-                position += 2;
-            }
+        for (i=0; i<3; i++) {
+            print_com(TEMP[i]);
         }
-
-        symbol = pgm_read_byte(&SYMBOLS[2]);
-        display_print_first_half_of_symbol(symbol, position);
-
-        position++;
-        symbol = pgm_read_byte(&SYMBOLS[3]);
-        display_print_symbol(symbol, position);
 
         iterations++;
     }
