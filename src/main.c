@@ -138,6 +138,11 @@ convert_for_4mux_dysplay(char temp) {
             TEMP[2] |= ((0b01000000 & symbol) >> 6) << invert_position_a;
             position++;
         }
+        else if (temp[i] == '.') {
+            TEMP[3] |= ((0b10000000 & symbol) >> 7) << invert_position_b;
+            TEMP[2] |= ((0b01000000 & symbol) >> 6) << invert_position_b;
+            position++;
+        }
         else {
             TEMP[3] |= ((0b00001000 & symbol) >> 3) << invert_position_a;
             TEMP[2] |= ((0b00000100 & symbol) >> 2) << invert_position_a;
