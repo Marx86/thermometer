@@ -122,9 +122,9 @@ int8_t read_temp() {
 }
 
 
-convert_for_4mux_dysplay(char temp) {
+void convert_for_4mux_dysplay(char temp[], char TEMP[]) {
     uint8_t i, len, start_index, position = 0,  invert_position_a, invert_position_b;
-    char symbol, TEMP[4] = {0, 0, 0, 0};
+    char symbol;
 
     len = strlen(temp);
     start_index = len - 3;
@@ -155,17 +155,15 @@ convert_for_4mux_dysplay(char temp) {
             position += 2;
         }
     }
-
-    return TEMP;
 }
 
 
-print_com(char temp_com) {
-    PORTB = temp_com;
+void print_com(uint8_t i, char TEMP[]) {
+    PORTB = TEMP[i];
     set_h(DDRD, i+3);
     set_h(PORTD, i+3);
     _delay_ms(1.33);
-    PORTB = ~temp_com;
+    PORTB = ~TEMP[i];
     set_l(PORTD, i+3);
     _delay_ms(1.33);
     set_l(DDRD, i+3);
@@ -174,7 +172,7 @@ print_com(char temp_com) {
 
 void main() {
     // , - is space
-    char symbol, raw_temp[3], temp[5] = ",,", TEMP[4];
+    char symbol, raw_temp[3], temp[5] = ",,", TEMP[4] = {0, 0, 0, 0};
     uint8_t i, iterations = 0;
 
     DDRB = 0b11111111;
@@ -187,11 +185,11 @@ void main() {
             strcat(temp, raw_temp);
             iterations = 0;
 
-            TEMP = convert_for_4mux_dysplay(temp);
+            convert_for_4mux_dysplay(temp, TEMP);
         }
 
         for (i=0; i<3; i++) {
-            print_com(TEMP[i]);
+            print_com(i, TEMP);
         }
 
         iterations++;
