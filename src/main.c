@@ -41,7 +41,7 @@ void i2c_write_byte(char byte) {
 
     I2C &= ~SCL_mask; // Set SCL pin to "0"
 
-    for (i=8; i--; i>=0) {
+    for (uint8_t i=8; i--; i>=0) {
         I2C &= ~SDA_mask | ((1 & byte >> i) << SDA);
 
         I2C ^= SCL_mask;

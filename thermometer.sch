@@ -1,41 +1,5 @@
-EESchema Schematic File Version 2
-LIBS:thermometer-rescue
-LIBS:power
-LIBS:device
-LIBS:transistors
-LIBS:conn
-LIBS:linear
-LIBS:regul
-LIBS:74xx
-LIBS:cmos4000
-LIBS:adc-dac
-LIBS:memory
-LIBS:xilinx
-LIBS:microcontrollers
-LIBS:dsp
-LIBS:microchip
-LIBS:analog_switches
-LIBS:motorola
-LIBS:texas
-LIBS:intel
-LIBS:audio
-LIBS:interface
-LIBS:digital-audio
-LIBS:philips
-LIBS:display
-LIBS:cypress
-LIBS:siliconi
-LIBS:opto
-LIBS:atmel
-LIBS:contrib
-LIBS:valves
-LIBS:si705x
-LIBS:lcd_display
-LIBS:max1555
-LIBS:ltc1517
-LIBS:ldk120
-LIBS:thermometer-cache
-EELAYER 25 0
+EESchema Schematic File Version 4
+EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
@@ -50,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L CONN_4 P1
+L thermometer-rescue:CONN_4 P1
 U 1 1 57D7C3A1
 P 3250 3900
 F 0 "P1" V 3200 3900 50  0000 C CNN
@@ -61,7 +25,7 @@ F 3 "" H 3250 3900 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R1
+L thermometer-rescue:R R1
 U 1 1 57D7C777
 P 4050 3000
 F 0 "R1" V 4130 3000 50  0000 C CNN
@@ -72,7 +36,7 @@ F 3 "" H 4050 3000 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C1
+L thermometer-rescue:C C1
 U 1 1 57D7CDD0
 P 2450 3950
 F 0 "C1" H 2500 4050 50  0000 L CNN
@@ -83,7 +47,7 @@ F 3 "" H 2450 3950 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L ATTINY2313A-P IC1
+L thermometer-rescue:ATTINY2313A-P IC1
 U 1 1 57E393E6
 P 5700 3850
 F 0 "IC1" H 4850 4800 60  0000 C CNN
@@ -94,7 +58,7 @@ F 3 "" H 5700 3850 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CONN_4 P2
+L thermometer-rescue:CONN_4 P2
 U 1 1 57E3D133
 P 3500 3900
 F 0 "P2" V 3450 3900 50  0000 C CNN
@@ -105,7 +69,7 @@ F 3 "" H 3500 3900 60  0000 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L VDD #PWR01
+L thermometer-rescue:VDD #PWR01
 U 1 1 57E3D3EA
 P 5700 2550
 F 0 "#PWR01" H 5700 2650 30  0001 C CNN
@@ -116,7 +80,7 @@ F 3 "" H 5700 2550 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GNDPWR #PWR02
+L thermometer-rescue:GNDPWR #PWR02
 U 1 1 57E3D4C2
 P 3900 4450
 F 0 "#PWR02" H 3900 4500 40  0001 C CNN
@@ -127,7 +91,7 @@ F 3 "" H 3900 4450 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GNDPWR #PWR03
+L thermometer-rescue:GNDPWR #PWR03
 U 1 1 57E3D51E
 P 5700 5000
 F 0 "#PWR03" H 5700 5050 40  0001 C CNN
@@ -138,7 +102,7 @@ F 3 "" H 5700 5000 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L BATTERY BT1
+L thermometer-rescue:BATTERY BT1
 U 1 1 57E3DAA2
 P 8600 1950
 F 0 "BT1" H 8600 2150 50  0000 C CNN
@@ -149,7 +113,7 @@ F 3 "" H 8600 1950 60  0000 C CNN
 	0    1    -1   0   
 $EndComp
 $Comp
-L GNDPWR #PWR04
+L thermometer-rescue:GNDPWR #PWR04
 U 1 1 57E3DE32
 P 8600 2300
 F 0 "#PWR04" H 8600 2350 40  0001 C CNN
@@ -160,7 +124,7 @@ F 3 "" H 8600 2300 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L max1555 D2
+L lcd_display:max1555 D2
 U 1 1 57EA5021
 P 9700 1600
 F 0 "D2" H 9550 1850 60  0000 C CNN
@@ -171,7 +135,7 @@ F 3 "" H 9725 1750 60  0000 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L LED D1
+L thermometer-rescue:LED D1
 U 1 1 57EA518E
 P 9200 1950
 F 0 "D1" H 9200 2050 50  0000 C CNN
@@ -182,7 +146,7 @@ F 3 "" H 9200 1950 60  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L R R3
+L thermometer-rescue:R R3
 U 1 1 57EA52E9
 P 8950 1950
 F 0 "R3" V 9030 1950 50  0000 C CNN
@@ -193,7 +157,7 @@ F 3 "" H 8950 1950 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GNDPWR #PWR05
+L thermometer-rescue:GNDPWR #PWR05
 U 1 1 57EA55EE
 P 9700 2300
 F 0 "#PWR05" H 9700 2350 40  0001 C CNN
@@ -204,7 +168,7 @@ F 3 "" H 9700 2300 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GNDPWR #PWR06
+L thermometer-rescue:GNDPWR #PWR06
 U 1 1 57EA5968
 P 10300 2300
 F 0 "#PWR06" H 10300 2350 40  0001 C CNN
@@ -215,7 +179,7 @@ F 3 "" H 10300 2300 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L LCD_Display_5 DP1
+L lcd_display:LCD_Display_5 DP1
 U 1 1 57ECDCF2
 P 9200 5100
 F 0 "DP1" H 8550 4750 60  0000 C CNN
@@ -226,7 +190,7 @@ F 3 "" H 8625 5705 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CONN_4 P4
+L thermometer-rescue:CONN_4 P4
 U 1 1 57ECF258
 P 10650 3900
 F 0 "P4" V 10600 3900 50  0000 C CNN
@@ -237,7 +201,7 @@ F 3 "" H 10650 3900 60  0000 C CNN
 	1    0    0    1   
 $EndComp
 $Comp
-L Si705x DD1
+L si705x:Si705x DD1
 U 1 1 57ECFA01
 P 1650 3950
 F 0 "DD1" H 1580 4530 60  0000 C CNN
@@ -248,7 +212,7 @@ F 3 "" H 1650 4450 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GNDPWR #PWR07
+L thermometer-rescue:GNDPWR #PWR07
 U 1 1 57ED008F
 P 10250 4700
 F 0 "#PWR07" H 10250 4750 40  0001 C CNN
@@ -259,7 +223,7 @@ F 3 "" H 10250 4700 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R5
+L thermometer-rescue:R R5
 U 1 1 57ED0487
 P 10050 3000
 F 0 "R5" V 10130 3000 50  0000 C CNN
@@ -270,7 +234,7 @@ F 3 "" H 10050 3000 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R4
+L thermometer-rescue:R R4
 U 1 1 57ED048D
 P 9900 3000
 F 0 "R4" V 9980 3000 50  0000 C CNN
@@ -281,7 +245,7 @@ F 3 "" H 9900 3000 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L CONN_6 P3
+L thermometer-rescue:CONN_6 P3
 U 1 1 58459967
 P 10700 1800
 F 0 "P3" H 10828 1843 60  0000 L CNN
@@ -292,7 +256,7 @@ F 3 "" H 10700 1800 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R6
+L thermometer-rescue:R R6
 U 1 1 5846BCD4
 P 7100 2400
 F 0 "R6" H 7150 2600 50  0000 L CNN
@@ -303,7 +267,7 @@ F 3 "" H 7100 2400 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R8
+L thermometer-rescue:R R8
 U 1 1 5846BD3E
 P 7300 2400
 F 0 "R8" H 7350 2600 50  0000 L CNN
@@ -314,7 +278,7 @@ F 3 "" H 7300 2400 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R10
+L thermometer-rescue:R R10
 U 1 1 5846BD9E
 P 7500 2400
 F 0 "R10" H 7550 2600 50  0000 L CNN
@@ -325,7 +289,7 @@ F 3 "" H 7500 2400 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R12
+L thermometer-rescue:R R12
 U 1 1 5846C56E
 P 7700 2400
 F 0 "R12" H 7750 2600 50  0000 L CNN
@@ -336,7 +300,7 @@ F 3 "" H 7700 2400 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R7
+L thermometer-rescue:R R7
 U 1 1 5846C5D4
 P 7100 4900
 F 0 "R7" H 7150 5100 50  0000 L CNN
@@ -347,7 +311,7 @@ F 3 "" H 7100 4900 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R9
+L thermometer-rescue:R R9
 U 1 1 5846C63C
 P 7300 4900
 F 0 "R9" H 7350 5100 50  0000 L CNN
@@ -358,7 +322,7 @@ F 3 "" H 7300 4900 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R11
+L thermometer-rescue:R R11
 U 1 1 5846C694
 P 7500 4900
 F 0 "R11" H 7550 5100 50  0000 L CNN
@@ -369,7 +333,7 @@ F 3 "" H 7500 4900 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R13
+L thermometer-rescue:R R13
 U 1 1 5846C6EC
 P 7700 4900
 F 0 "R13" H 7750 5100 50  0000 L CNN
@@ -406,9 +370,9 @@ Wire Wire Line
 Wire Wire Line
 	900  3650 950  3650
 Wire Wire Line
-	2650 4150 2250 4150
+	2650 4150 2450 4150
 Wire Wire Line
-	2250 4050 2250 4250
+	2250 4050 2250 4150
 Connection ~ 2450 4150
 Connection ~ 2250 4150
 Connection ~ 2450 3750
@@ -421,7 +385,7 @@ Wire Wire Line
 Wire Wire Line
 	5700 4850 5700 5000
 Wire Wire Line
-	8250 1550 9300 1550
+	8250 1550 8600 1550
 Wire Wire Line
 	8600 1550 8600 1650
 Wire Wire Line
@@ -430,7 +394,7 @@ Connection ~ 4050 3350
 Connection ~ 4200 3550
 Connection ~ 4050 2700
 Wire Wire Line
-	2250 3750 2650 3750
+	2250 3750 2450 3750
 Wire Wire Line
 	2650 3750 2650 3950
 Wire Wire Line
@@ -446,7 +410,7 @@ Wire Wire Line
 Wire Wire Line
 	7050 3550 9500 3550
 Wire Wire Line
-	9500 3550 9500 4600
+	9500 3550 9500 4500
 Wire Wire Line
 	7050 3450 9400 3450
 Wire Wire Line
@@ -486,7 +450,7 @@ Wire Wire Line
 Wire Wire Line
 	10350 1950 10300 1950
 Wire Wire Line
-	10300 1950 10300 2300
+	10300 1950 10300 2050
 Wire Wire Line
 	10350 1550 10100 1550
 Wire Wire Line
@@ -497,19 +461,19 @@ Connection ~ 9500 4500
 Wire Wire Line
 	8500 4250 8500 4600
 Wire Wire Line
-	7050 4250 8500 4250
+	7050 4250 7100 4250
 Wire Wire Line
 	8600 4350 8600 4600
 Wire Wire Line
-	7050 4350 8600 4350
+	7050 4350 7300 4350
 Wire Wire Line
 	8700 4450 8700 4600
 Wire Wire Line
-	7050 4450 8700 4450
+	7050 4450 7500 4450
 Wire Wire Line
 	8800 4550 8800 4600
 Wire Wire Line
-	7050 4550 8800 4550
+	7050 4550 7700 4550
 Wire Wire Line
 	2250 3850 2150 3850
 Wire Wire Line
@@ -521,19 +485,19 @@ Wire Wire Line
 Wire Wire Line
 	9900 2700 9900 2750
 Wire Wire Line
-	10050 3250 10050 4200
+	10050 3250 10050 3950
 Connection ~ 10050 3950
 Wire Wire Line
-	9900 3250 9900 4200
+	9900 3250 9900 4050
 Connection ~ 9900 4050
 Wire Wire Line
 	3900 3950 3850 3950
 Wire Wire Line
-	4050 3250 4050 3950
+	4050 3250 4050 3350
 Wire Wire Line
 	4050 3750 3850 3750
 Wire Wire Line
-	4200 3250 4200 3950
+	4200 3250 4200 3550
 Wire Wire Line
 	4200 3850 3850 3850
 Wire Wire Line
@@ -541,26 +505,26 @@ Wire Wire Line
 Wire Wire Line
 	10250 3750 10250 4700
 Wire Wire Line
-	7050 3950 10300 3950
+	7050 3950 10050 3950
 Wire Wire Line
-	7050 4050 10300 4050
+	7050 4050 9900 4050
 Wire Wire Line
 	10350 2050 10300 2050
 Connection ~ 10300 2050
 Wire Wire Line
-	7100 2650 7100 4650
+	7100 2650 7100 4250
 Connection ~ 7100 4250
 Wire Wire Line
-	7300 2650 7300 4650
+	7300 2650 7300 4350
 Connection ~ 7300 4350
 Wire Wire Line
-	7500 2650 7500 4650
+	7500 2650 7500 4450
 Connection ~ 7500 4450
 Wire Wire Line
-	7700 2650 7700 4650
+	7700 2650 7700 4550
 Connection ~ 7700 4550
 $Comp
-L VDD #PWR08
+L thermometer-rescue:VDD #PWR08
 U 1 1 5846E25B
 P 7500 2050
 F 0 "#PWR08" H 7500 2150 30  0001 C CNN
@@ -571,7 +535,7 @@ F 3 "" H 7500 2050 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L GNDPWR #PWR09
+L thermometer-rescue:GNDPWR #PWR09
 U 1 1 5846E2A9
 P 7700 5250
 F 0 "#PWR09" H 7700 5300 40  0001 C CNN
@@ -584,11 +548,11 @@ $EndComp
 Wire Wire Line
 	7100 2150 7100 2100
 Wire Wire Line
-	7100 2100 7700 2100
+	7100 2100 7300 2100
 Wire Wire Line
 	7700 2100 7700 2150
 Wire Wire Line
-	7500 2050 7500 2150
+	7500 2050 7500 2100
 Connection ~ 7500 2100
 Wire Wire Line
 	7300 2100 7300 2150
@@ -596,9 +560,9 @@ Connection ~ 7300 2100
 Wire Wire Line
 	7100 5150 7100 5200
 Wire Wire Line
-	7100 5200 8300 5200
+	7100 5200 7300 5200
 Wire Wire Line
-	7700 5150 7700 5250
+	7700 5150 7700 5200
 Wire Wire Line
 	7500 5150 7500 5200
 Connection ~ 7500 5200
@@ -607,7 +571,7 @@ Wire Wire Line
 Connection ~ 7300 5200
 Connection ~ 7700 5200
 $Comp
-L R R14
+L thermometer-rescue:R R14
 U 1 1 584A9CBD
 P 8000 4150
 F 0 "R14" V 7950 4350 50  0000 C CNN
@@ -620,7 +584,7 @@ $EndComp
 Wire Wire Line
 	7050 4150 7750 4150
 $Comp
-L ZENER D5
+L thermometer-rescue:ZENER D5
 U 1 1 584A9F6E
 P 8300 4900
 F 0 "D5" V 8400 5100 50  0000 R CNN
@@ -633,9 +597,9 @@ $EndComp
 Wire Wire Line
 	8300 5200 8300 5100
 Wire Wire Line
-	8300 2700 8300 4700
+	8300 2700 8300 4150
 Wire Wire Line
-	8250 4150 10150 4150
+	8250 4150 8300 4150
 Wire Wire Line
 	10150 4150 10150 3850
 Wire Wire Line
@@ -645,7 +609,7 @@ Connection ~ 8300 2700
 Wire Wire Line
 	4050 2750 4050 2700
 $Comp
-L ZENER D6
+L thermometer-rescue:ZENER D6
 U 1 1 584AAEE5
 P 9900 4400
 F 0 "D6" V 10100 4400 50  0000 R CNN
@@ -656,7 +620,7 @@ F 3 "" H 9900 4400 60  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L ZENER D7
+L thermometer-rescue:ZENER D7
 U 1 1 584AAFEE
 P 10050 4400
 F 0 "D7" V 10250 4350 50  0000 R CNN
@@ -667,7 +631,7 @@ F 3 "" H 10050 4400 60  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L GNDPWR #PWR010
+L thermometer-rescue:GNDPWR #PWR010
 U 1 1 584AB2CD
 P 10050 4700
 F 0 "#PWR010" H 10050 4750 40  0001 C CNN
@@ -682,10 +646,10 @@ Wire Wire Line
 Wire Wire Line
 	9900 4650 10050 4650
 Wire Wire Line
-	10050 4600 10050 4700
+	10050 4600 10050 4650
 Connection ~ 10050 4650
 $Comp
-L ZENER D4
+L thermometer-rescue:ZENER D4
 U 1 1 584ABA72
 P 4200 4150
 F 0 "D4" V 4400 4100 50  0000 R CNN
@@ -696,7 +660,7 @@ F 3 "" H 4200 4150 60  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L ZENER D3
+L thermometer-rescue:ZENER D3
 U 1 1 584ABB87
 P 4050 4150
 F 0 "D3" V 4250 4150 50  0000 R CNN
@@ -713,9 +677,9 @@ Wire Wire Line
 Wire Wire Line
 	4200 4400 4050 4400
 Wire Wire Line
-	4050 4350 4050 4450
+	4050 4350 4050 4400
 $Comp
-L GNDPWR #PWR011
+L thermometer-rescue:GNDPWR #PWR011
 U 1 1 584AC118
 P 4050 4450
 F 0 "#PWR011" H 4050 4500 40  0001 C CNN
@@ -727,7 +691,7 @@ F 3 "" H 4050 4450 60  0001 C CNN
 $EndComp
 Connection ~ 4050 4400
 $Comp
-L GNDPWR #PWR012
+L thermometer-rescue:GNDPWR #PWR012
 U 1 1 57E3DDDE
 P 8250 2300
 F 0 "#PWR012" H 8250 2350 40  0001 C CNN
@@ -740,7 +704,7 @@ $EndComp
 Wire Wire Line
 	8250 2150 8250 2300
 $Comp
-L C C2
+L thermometer-rescue:C C2
 U 1 1 57E3D673
 P 8250 1950
 F 0 "C2" H 8300 2050 50  0000 L CNN
@@ -751,9 +715,9 @@ F 3 "" H 8250 1950 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8250 1500 8250 1750
+	8250 1500 8250 1550
 $Comp
-L VDD #PWR013
+L thermometer-rescue:VDD #PWR013
 U 1 1 57E3DE88
 P 8250 1500
 F 0 "#PWR013" H 8250 1600 30  0001 C CNN
@@ -767,9 +731,9 @@ Connection ~ 8250 1550
 Wire Wire Line
 	3900 2700 3900 3950
 Wire Wire Line
-	3900 2700 10050 2700
+	3900 2700 4050 2700
 $Comp
-L R R2
+L thermometer-rescue:R R2
 U 1 1 57D7C6AC
 P 4200 3000
 F 0 "R2" V 4280 3000 50  0000 C CNN
@@ -788,7 +752,7 @@ Wire Wire Line
 Wire Wire Line
 	3900 4050 3900 4450
 $Comp
-L CONN_4 P5
+L thermometer-rescue:CONN_4 P5
 U 1 1 584B0FD8
 P 3250 5150
 F 0 "P5" V 3200 5150 50  0000 C CNN
@@ -799,7 +763,7 @@ F 3 "" H 3250 5150 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L C C3
+L thermometer-rescue:C C3
 U 1 1 584B0FDE
 P 2450 5200
 F 0 "C3" H 2500 5300 50  0000 L CNN
@@ -810,7 +774,7 @@ F 3 "" H 2450 5200 60  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Si705x DD2
+L si705x:Si705x DD2
 U 1 1 584B0FE4
 P 1650 5200
 F 0 "DD2" H 1580 5780 60  0000 C CNN
@@ -847,14 +811,14 @@ Wire Wire Line
 Wire Wire Line
 	900  4900 950  4900
 Wire Wire Line
-	2650 5400 2250 5400
+	2650 5400 2450 5400
 Wire Wire Line
-	2250 5300 2250 5500
+	2250 5300 2250 5400
 Connection ~ 2450 5400
 Connection ~ 2250 5400
 Connection ~ 2450 5000
 Wire Wire Line
-	2250 5000 2650 5000
+	2250 5000 2450 5000
 Wire Wire Line
 	2650 5000 2650 5200
 Wire Wire Line
@@ -865,4 +829,88 @@ Wire Wire Line
 	2250 5300 2150 5300
 Wire Wire Line
 	2250 5500 2150 5500
+Wire Wire Line
+	2450 4150 2250 4150
+Wire Wire Line
+	2250 4150 2250 4250
+Wire Wire Line
+	2450 3750 2650 3750
+Wire Wire Line
+	4050 3350 4050 3750
+Wire Wire Line
+	4200 3550 4200 3850
+Wire Wire Line
+	4050 2700 4200 2700
+Wire Wire Line
+	8600 1550 8950 1550
+Wire Wire Line
+	8950 1550 9300 1550
+Wire Wire Line
+	9500 4500 9500 4600
+Wire Wire Line
+	10050 3950 10050 4200
+Wire Wire Line
+	10050 3950 10300 3950
+Wire Wire Line
+	9900 4050 9900 4200
+Wire Wire Line
+	9900 4050 10300 4050
+Wire Wire Line
+	10300 2050 10300 2300
+Wire Wire Line
+	7100 4250 8500 4250
+Wire Wire Line
+	7100 4250 7100 4650
+Wire Wire Line
+	7300 4350 8600 4350
+Wire Wire Line
+	7300 4350 7300 4650
+Wire Wire Line
+	7500 4450 8700 4450
+Wire Wire Line
+	7500 4450 7500 4650
+Wire Wire Line
+	7700 4550 8800 4550
+Wire Wire Line
+	7700 4550 7700 4650
+Wire Wire Line
+	7500 2100 7700 2100
+Wire Wire Line
+	7500 2100 7500 2150
+Wire Wire Line
+	7300 2100 7500 2100
+Wire Wire Line
+	7500 5200 7700 5200
+Wire Wire Line
+	7300 5200 7500 5200
+Wire Wire Line
+	7700 5200 7700 5250
+Wire Wire Line
+	7700 5200 8300 5200
+Wire Wire Line
+	8300 4150 8300 4700
+Wire Wire Line
+	8300 4150 10150 4150
+Wire Wire Line
+	8300 2700 9900 2700
+Wire Wire Line
+	10050 4650 10050 4700
+Wire Wire Line
+	4200 3850 4200 3950
+Wire Wire Line
+	4050 3750 4050 3950
+Wire Wire Line
+	4050 4400 4050 4450
+Wire Wire Line
+	8250 1550 8250 1750
+Wire Wire Line
+	4200 2700 8300 2700
+Wire Wire Line
+	9900 2700 10050 2700
+Wire Wire Line
+	2450 5400 2250 5400
+Wire Wire Line
+	2250 5400 2250 5500
+Wire Wire Line
+	2450 5000 2650 5000
 $EndSCHEMATC
